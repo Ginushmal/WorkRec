@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, 
-                               QDialog, QLineEdit, QFileDialog, QListWidget, QDoubleSpinBox, QTextEdit, QSpinBox)
+                               QDialog, QLineEdit, QFileDialog, QListWidget, QDoubleSpinBox, QTextEdit, QSpinBox, QInputDialog)
 from PyQt6.QtCore import Qt, QTimer
 import settings
 import os
@@ -248,7 +248,7 @@ class SettingsDialog(QDialog):
         main_layout.addWidget(self.app_list)
 
         app_btn_layout = QHBoxLayout()
-        add_btn = QPushButton("Add .exe")
+        add_btn = QPushButton("Add App Name")
         add_btn.clicked.connect(self.add_app)
         remove_btn = QPushButton("Remove Selected")
         remove_btn.clicked.connect(self.remove_app)
@@ -300,12 +300,10 @@ class SettingsDialog(QDialog):
         self.setLayout(main_layout)
 
     def add_app(self):
-        file_path, _ = QFileDialog.getOpenFileName(self, "Select Application", "", "Executable Files (*.exe);;All Files (*)")
-        if file_path:
-            import os
-            filename = os.path.basename(file_path)
+        text, ok = QInputDialog.getText(self, "Add Application", "Enter executable name (e.g., blender.exe):")
+        if ok and text:
             # Add exactly the executable name lowercase to list
-            self.app_list.addItem(filename.lower())
+            self.app_list.addItem(text.strip().lower())
 
     def remove_app(self):
         for item in self.app_list.selectedItems():

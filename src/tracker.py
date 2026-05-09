@@ -94,8 +94,7 @@ class WorkTracker:
                 # Check for direct match, or if one name starts with the other (to handle 'blender-launcher' vs 'blender')
                 # Or check if the user's defined app base is directly in the window title
                 if (app == exe_name or 
-                    (app_base and exe_base and (app_base.startswith(exe_base) or exe_base.startswith(app_base))) or 
-                    (app_base and app_base in window_title)):
+                    (app_base and exe_base and (app_base.startswith(exe_base) or exe_base.startswith(app_base)))):
                     
                     app_label = exe_base if exe_base else app_base
                     logger.debug(f"Matched target list item '{app}' with '{app_label}'")
