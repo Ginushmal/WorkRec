@@ -1,0 +1,8 @@
+PyQt6
+mss
+pynput
+psutil
+Pillow
+pygetwindow
+
+pywin32
